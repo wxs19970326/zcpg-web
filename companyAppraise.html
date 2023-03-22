@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>公司评估界面</title>
+    <link rel="stylesheet" href="static/semantic-ui/semantic.min.css">
+    <link rel="stylesheet" href="static/css/mine.css">
+    <link rel="stylesheet" href="static/css/login4appraise.css">
+    <link rel="stylesheet" href="static/css/companyAppraise.css">
+    <script src="static/js/jq/jquery-3.4.1.min.js"></script>
+    <script src="static/semantic-ui/semantic.min.js"></script>
+</head>
+<script>
+    $(function () {
+        $(".ui.dropdown").dropdown();
+    })
+</script>
+<body>
+<div id="mine-loading" class="mine-loading">
+    <div class="ui active dimmer">
+        <div class="ui loader"></div>
+    </div>
+</div>
+<div class="whole-content">
+    <div id="second-patent" class="ui modal">
+        <div class="header">附属专利列表</div>
+        <div class="content">
+            <table class="ui fixed single line celled table">
+                <thead class="myTb-th">
+                <tr>
+                    <th class="myTb-th-eight">序号</th>
+                    <th>附属专利号</th>
+                    <th>附属专利名称</th>
+                </tr>
+                </thead>
+                <tbody class="myTb-th" id="second-body">
+                <!-- 动态加载 -->
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <div class="actions">
+                <div class="ui primary deny button">
+                    完成
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="update-modal" class="ui large modal scrolling me">
+        <div class="header" id="header-desc">详情</div>
+        <div id="update-form">
+            <div class="body-content1">
+                <div class="left">
+                    <table class="tables-cc" id="tab">
+                        <tr>
+                            <td class="label-td">
+                                <label>委托单位：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="titleHolder" name="titleHolder" disabled type="text"
+                                           placeholder="委托单位...">
+                                    <input id="record-id" hidden type="text"/>
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>社会统一信用代码：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="creditCode" name="creditCode" disabled type="text"
+                                           placeholder="社会统一信用代码...">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>主专利号：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="mainPatentNo" name="mainPatentNo" disabled type="text">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>主专利名称：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="mainPatentName" name="mainPatentName" disabled type="text">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>专利类型：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="patentSel" name="patentId" disabled type="text">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>剩余有限期：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="validDateSel" name="validDate" disabled type="text">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>附属专利号：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="sec-patent-no" name="secPatentNo" disabled type="text" placeholder="暂无">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>附属专利名称：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="sec-patent-name" name="secPatentName" disabled type="text" placeholder="暂无">
+                                </div>
+                            </td>
+                            <td style="width: 2%;cursor: pointer" id="display-btn">➕</td>
+                        </tr>
+                        <tbody id="second-patent-tr-content" style="display: none">
+                        <tr>
+                            <td class="label-td">
+                                <label>附属专利号：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input name="secPatentNo" disabled type="text">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>附属专利名称：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input name="secPatentName" disabled type="text">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tr>
+                            <td class="label-td">
+                                <label>所属行业：</label>
+                            </td>
+                            <td class="input-td" style="width: 278px">
+                                <div class="ui input">
+                                    <input id="industrySel" name="industryId" disabled type="text">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>评估目的：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="assetAimSel" name="assetAimId" disabled type="text">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>评估基准日：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="assRefTimeStr" name="assRefTimeStr" disabled type="text"
+                                           placeholder="主专利名称...">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>去年营业收入：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="preYearIncome" name="preYearIncome" disabled type="text"
+                                           placeholder="主专利名称...">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>今年营业收入：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="currYearIncome" name="currYearIncome" disabled type="text"
+                                           placeholder="主专利名称...">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>联系人：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="contacts" name="contacts" type="text" disabled placeholder="联系人...">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>手机号：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="phoneNum" name="phoneNum" type="text" disabled placeholder="手机号...">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>预评估结果：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="preAssRes" name="preAssRes" type="text" disabled placeholder="预评估结果...">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>邮箱：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="email" name="email" type="text" disabled placeholder="邮箱...">
+                                </div>
+                            </td>
+                            <td class="label-td">
+                                <label>调整评估结果：</label>
+                            </td>
+                            <td class="input-td">
+                                <div class="ui input">
+                                    <input id="finalAssRes" name="finalAssRes" oninput="inputNumber(this)" type="text" placeholder="调整评估结果, 单位: 万元...">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="label-tr-last">
+                            <td class="label-td">
+                                <labstrwqsel>下载附件：</labstrwqsel>
+                            </td>
+                            <td class="label-td" colspan="3" style="height: 130px; line-height: 130px">
+                                <div class="file-up">
+                                    <div class="upload-content">
+                                        营业执照：<a id="yyzz" href="" style="color: #428bca">点击下载</a>
+                                    </div>
+                                    <div class="upload-content">
+                                        专利证书：<a id="zlzs" href="" style="color: #428bca">点击下载</a>
+                                    </div>
+                                    <div class="upload-content">
+                                        年度报表：<a id="ndbb" href="" style="color: #428bca">点击下载</a>
+                                    </div>
+                                    <div class="upload-content">
+                                        受托人委权书：<a id="strwqs" href="" style="color: #428bca">点击下载</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="bottom-div">
+                <div class="actions">
+                    <button type="button" class="ui primary button next-btn" id="btn-next">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="report-modal1" class="ui large modal scrolling me">
+        <div class="header" id="header-report">评估报告</div>
+        <div class="myReport">
+            <div class="text-content">
+                <div id="report-content">
+
+                </div>
+                <div id="bottom-div1" style="margin-top: 110px">
+                    <div class="actions">
+                        <br><br>
+                        <button type="button" class="ui primary button next-btn" id="send-mail">发 送 邮 件</button>
+                        <br><br>
+                        <a id="back-btn" href="javascript:void(0)" style="color: #428bca">返回上一步</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="remind-modal" class="ui modal" style="width: 450px !important;">
+        <div class="header">温馨提示</div>
+        <div id="remind-txt" class="content" style="padding-left: 5%">
+        </div>
+        <div class="actions" style="text-align: center">
+            <div class="ui approve button">确定</div>
+        </div>
+    </div>
+    <div id="common-modal" class="ui modal" style="width: 450px !important;">
+        <div class="header">温馨提示</div>
+        <div id="common-txt" class="content" style="padding-left: 5%">
+        </div>
+        <div class="actions" style="text-align: center">
+            <div class="ui approve button">确定</div>
+        </div>
+    </div>
+    <div class="header-content">
+        <div class="logo-content">
+            <img src="static/imgs/logo.png" alt="东鹏"/>
+            <div class="logo-bottom">
+                <p>东鹏知识产权</p>
+            </div>
+        </div>
+        <div class="h-content">
+            <p>知识产权线上评估</p>
+        </div>
+    </div>
+    <div class="body-content">
+        <form id="dataForm">
+            <div class="condition">
+                <div class="ui selection dropdown" style="width: 60% !important;">
+                    <input type="hidden" name="status" value="0" onchange="selectList()">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">状态</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">待办</div>
+                        <div class="item" data-value="1">已办</div>
+                        <div class="item" data-value="2">全部</div>
+                    </div>
+                </div>
+                <div class="ui input">
+                    <input type="text" name="titleHolder" placeholder="产权持有人...">
+                </div>
+                <div class="ui input">
+                    <input type="text" name="creditCode" placeholder="统一信用代码...">
+                </div>
+                <div class="ui input">
+                    <input type="text" name="mainPatentNo" placeholder="主专利号..."/>
+                </div>
+                <div class="ui input">
+                    <input type="text" name="mainPatentName" placeholder="主专利名称..."/>
+                </div>
+                <div class="ui input" style="display: none">
+                    <input id="currPageInput" name="pageNum" type="text" hidden/>
+                </div>
+                <button type="button" style="margin-left: 2%" class="ui primary button tiny" id="search-btn">搜&nbsp;&nbsp;&nbsp;索
+                </button>
+            </div>
+        </form>
+        <div class="tb">
+            <table class="ui selectable celled table"
+                   style="text-align: center;font-size: 14px;background-color: #F2F2F2;">
+                <thead>
+                <tr>
+                    <th class="six-th">序号</th>
+                    <th class="one-three-th">产权持有人</th>
+                    <th>统一信用代码</th>
+                    <th>主专利号</th>
+                    <th class="one-three-th">主专利名称</th>
+                    <th class="one-th">录入时间</th>
+                    <th class="six-th">附属专利</th>
+                    <th class="seven-th">评估人</th>
+                    <th class="seven-th">预评估结果</th>
+                    <th class="eight-th">预评估结果修正</th>
+                    <th class="eight-th">预评估报告下载</th>
+                    <th class="six-th">操作</th>
+                </tr>
+                </thead>
+                <tbody id="data-tBody">
+                <!-- 动态加载 -->
+                </tbody>
+            </table>
+        </div>
+        <div class="turn-page">
+            <button id="first-page" class="ui primary mini teal basic button mi" onclick="turnPage(1)">首页</button>
+            <button id="pre-page" class="ui primary mini teal basic button mi" onclick="turnPage(null)">上一页</button>
+            <button id="curr-page" class="ui primary mini teal basic button mi" disabled>第1页</button>
+            <button id="next-page" class="ui primary mini teal basic button mi" onclick="turnPage(null)">下一页</button>
+            <button id="last-page" class="ui primary mini teal basic button mi" onclick="turnPage(1)">尾页</button>
+        </div>
+    </div>
+    <div class="footer-content">
+        <p><span id="footer-line">COPYRIGHT©2005-2021 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号</span></p>
+    </div>
+</div>
+
+</body>
+<script>
+    $('#footer-line').text('COPYRIGHT©2005-' + new Date().getFullYear() +  ' 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号')
+</script>
+<script src="static/js/constant.js"></script>
+<script src="static/js/moment.js"></script>
+<script src="static/js/companyAppraise.js"></script>
+</html>

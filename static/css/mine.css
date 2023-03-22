@@ -1,0 +1,16 @@
+body {
+    background: url("../imgs/bg.jpg");
+    margin: 0;
+    padding: 0;
+    height: 0;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size:cover;
+    background-origin:border-box;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}

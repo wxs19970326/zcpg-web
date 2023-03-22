@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>资产评估公司界面</title>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/mine.css">
+    <link rel="stylesheet" href="static/css/login4appraise.css">
+    <link rel="stylesheet" href="static/css/onlineAssessment.css">
+    <link rel="stylesheet" href="static/css/onlineAssessmentConfirm.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/jq/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<form id="submit-form" method="post" class="form-group" enctype="multipart/form-data">
+    <div id="submit" class="online-content">
+        <div class="header-content">
+            <div class="logo-content">
+                <img src="static/imgs/logo.png" alt="东鹏"/>
+                <div class="logo-bottom">
+                    <p style="font-family: 'STFangsong'">东鹏知识产权</p>
+                </div>
+            </div>
+            <div class="h-content">
+                <p style="font-size: 50px;font-family: 'STFangsong'">知识产权线上评估</p>
+            </div>
+        </div>
+        <div class="body-content1">
+            <div class="float-loading" id="loading">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="left">
+                <div class="modal fade" id="license" data-backdrop="static" tabindex="-1" aria-labelledby="license"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="license-h">营业执照上传</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="margin-left: 3%">
+                                <h6 class="up-tips">格式限制为.pdf, 支持同时上传多个</h6>
+                                <input type="file" name="licenseFile" onchange="showFileList(1)" accept=".pdf" multiple>
+                                <div id="licenseFileList" style="padding: 2% 0;margin: 0"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="certificate" data-backdrop="static" tabindex="-1"
+                     aria-labelledby="certificate" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="certificate-h">权属证明上传</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="margin-left: 3%">
+                                <h6 class="up-tips">格式限制为.pdf, 支持同时上传多个</h6>
+                                <input type="file" name="certificateFile" onchange="showFileList(2)" accept=".pdf" multiple>
+                                <div id="certificateFileList" style="padding: 2% 0;margin: 0"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="excel" data-backdrop="static" tabindex="-1" aria-labelledby="excel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="excel-h">财务资料上传</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="margin-left: 3%;">
+                                <h6 class="up-tips">格式限制为.pdf, 支持同时上传多个</h6>
+                                <input type="file" name="excelFile" onchange="showFileList(3)" accept=".pdf" multiple>
+                                <div id="excelFileList" style="padding: 2% 0;margin: 0"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="entrustAuthor" data-backdrop="static" tabindex="-1"
+                     aria-labelledby="entrustAuthor" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="entrustAuthor-h">委托书上传</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="margin-left: 3%">
+                                <h6 class="up-tips">格式限制为.pdf, 支持同时上传多个</h6>
+                                <input type="file" name="entrustAuthorFile" onchange="showFileList(4)" accept=".pdf" multiple>
+                                <div id="entrustAuthorFileList" style="padding: 2% 0;margin: 0"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="tables-cc" id="tab">
+                        <tr>
+                            <td class="label-td table-label">
+                                <label>委托人：</label>
+                            </td>
+                            <td>
+                                <input id="titleHolder" type="text" name="titleHolder" class="form-control table-input"/>
+                            </td>
+                            <td class="label-td table-label">
+                                <label>社会统一信用代码：</label>
+                            </td>
+                            <td class="input-td">
+                                <input id="creditCode" type="text" name="creditCode" oninput="numAndABC(this)" class="form-control table-input"/>
+                            </td>
+                        </tr>
+                        <tr>
+<!--                            <td class="label-td">-->
+<!--                                <label>主专利号：</label>-->
+<!--                            </td>-->
+<!--                            <td class="input-td">-->
+<!--                                <input id="mainPatentNo" type="text" name="mainPatentNo" oninput="numAndABC(this)" class="form-control table-input"/>-->
+<!--                            </td>-->
+                            <td class="label-td">
+                                <label>评估对象：</label>
+                            </td>
+                            <td class="input-td">
+                                <select name="assetObjId" class="form-control" id="assetObjId">
+                                    <option value="" selected>下拉选择</option>
+                                </select>
+                            </td>
+                            <td class="label-td">
+                                <label>主专利名称：</label>
+                            </td>
+                            <td class="input-td">
+<!--                                <input id="mainPatentName" type="text" name="mainPatentName" class="form-control table-input"/>-->
+                                <select name="mainPatentName" class="form-control" id="mainPatentName">
+                                    <option value="" selected>下拉选择</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>专利类型：</label>
+                            </td>
+                            <td class="input-td">
+<!--                                <select name="patentId" class="form-control" id="patentSel">-->
+<!--                                    <option value="" selected>下拉选择</option>-->
+<!--                                </select>-->
+                                <input id="patentId" type="text" name="patentId" class="form-control table-input"/>
+                            </td>
+                            <td class="label-td">
+                                <label>剩余有限期：</label>
+                            </td>
+                            <td class="input-td">
+                                <select name="validDate" class="form-control" id="validDateSel">
+                                    <option value="2" selected>下拉选择</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>附属专利号：</label>
+                            </td>
+                            <td class="input-td">
+                                <input id="sec-patent-no" type="text" name="secPatentNo" oninput="numAndABC(this)" class="form-control table-input"/>
+                            </td>
+                            <td class="label-td">
+                                <label>附属专利名称：</label>
+                            </td>
+                            <td class="input-td">
+                                <input id="sec-patent-name" type="text" name="secPatentName" class="form-control table-input"/>
+                            </td>
+<!--                            <td style="width: 2%;cursor: pointer" id="add-input">➕</td>-->
+                            <td style="width: 2%;cursor: pointer" id="add-input"><span class="icon-plus"></span></td>
+                        </tr>
+                        <tbody id="add-content">
+                        </tbody>
+                        <tr>
+                            <td class="label-td">
+                                <label>所属行业：</label>
+                            </td>
+                            <td class="input-td" style="width: 278px">
+                                <select name="industryId" class="form-control" id="industrySel">
+                                    <option value="1" selected>下拉选择</option>
+                                </select>
+                            </td>
+                            <td class="label-td">
+                                <label>评估目的：</label>
+                            </td>
+                            <td class="input-td">
+                                <select name="assetAimId" class="form-control" id="assetAimSel">
+                                    <option value="" selected>下拉选择</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>评估基准日：</label>
+                            </td>
+                            <td class="input-td">
+                                <input id="assRefTimeStr" type="text" name="assRefTimeStr" class="form-control table-input"/>
+                            </td>
+                            <td class="label-td">
+                                <label>上年度销售收入：</label>
+                            </td>
+                            <td class="input-td">
+                                <input id="preYearIncome" type="text" name="preYearIncome" oninput="inputNumber(this)"
+                                       placeholder="单位：万元（保留两位小数）" class="form-control table-input"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>本年度销售收入：</label>
+                            </td>
+                            <td class="input-td">
+                                <input id="currYearIncome" type="text" name="currYearIncome" oninput="inputNumber(this)"
+                                       placeholder="单位：万元（保留两位小数）" class="form-control table-input"/>
+                            </td>
+                            <!--<td class="label-td">-->
+                            <!--<label>预评估结果：</label>-->
+                            <!--</td>-->
+                            <!--<td class="input-td">-->
+                            <!--<input type="text"/>-->
+                            <!--</td>-->
+                        </tr>
+                        <tr class="label-tr-last">
+                            <td class="label-td">
+                                <label>上传附件：</label>
+                            </td>
+                            <td class="label-td" colspan="3" style="height: 130px;line-height:130px">
+                                <div class="file-up">
+                                    <div class="upload-content">
+                                        <div>
+                                            营业执照：
+<!--                                            <img src="static/imgs/upload.svg" alt="" onclick="uploadLicense()" style="position: relative">-->
+                                            <span class="icon-file-empty" onclick="uploadLicense()"></span>
+                                            <span class="uploadStatus"><p id="licenseCount">0</p></span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-content">
+                                        <div>
+                                            权属证明：
+<!--                                            <img src="static/imgs/upload.svg" alt="" onclick="uploadCertificate()" style="position: relative">-->
+                                            <span class="icon-file-empty" onclick="uploadCertificate()"></span>
+                                            <span class="uploadStatus"><p id="certificateCount">0</p></span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-content">
+                                        <div>
+                                            财务资料：
+<!--                                            <img src="static/imgs/upload.svg" alt="" onclick="uploadExcel()" style="position: relative">-->
+                                            <span class="icon-file-empty" onclick="uploadExcel()"></span>
+                                            <span class="uploadStatus"><p id="excelCount">0</p></span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-content">
+                                        <div>
+                                            委托书：
+<!--                                            <img src="static/imgs/upload.svg" alt="" onclick="uploadEntrustAuthor()" style="position: relative">-->
+                                            <span class="icon-file-empty" onclick="uploadEntrustAuthor()"></span>
+                                            <span class="uploadStatus"><p id="entrustAuthorCount">0</p></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>
+
+            </div>
+            <div class="right">
+                    <div class="phone">
+                        <div class="float-img-phone">
+<!--                            <p id="phone-hover" class="phone-hover">010-83553655</p>-->
+                            <p id="phone-hover" class="phone-hover">13001276006</p>
+                        </div>
+<!--                        <img style="cursor: pointer" id="phone-img" src="static/imgs/phonr.svg" alt="电话">-->
+                        <span id="phone-img" style="cursor: pointer" class="icon-mobile2"></span>
+                    </div>
+                    <div class="wechat">
+                        <div class="float-img-wechat">
+                            <img id="wechat-hover" class="wechat-hover" src="static/imgs/wechat_QR.png" alt="微信二维码">
+                        </div>
+                        <img style="cursor: pointer" id="wechat-img" src="static/imgs/wec.svg" alt="电话">
+                    </div>
+                </div>
+
+        </div>
+        <div class="bottom">
+            <button type="button" class="btn btn-primary next-btn" id="btn-next">下一步</button>
+            <div class="txt" id="service-statement"><p><span>鹏之翼服务声明</span></p>
+                <p><span>使用本站点前，请仔细阅读下列条款：</span></p>
+                <p><span>“鹏之翼”线上评估是为用户提供线上专利价值评估的网络平台。</span></p>
+                <p><span>1、鹏之翼是依据国际通用的估值模型和自主研发的估值指标体系，在线进行专利价值评估。所采用的数据均为用户提供和公开渠道可获取，东鹏评估不对前述数据的准确性、完整性和真实性负有实质审核的义务。网站自动生成的相关报告，仅给用户提供参考，不能作为企业涉及专利经济活动的法定依据，并不构成任何投资建议，投资者据此做出的任何投资决策与东鹏评估无关。</span>
+                </p>
+                <p><span>2、用户认真负责填写信息，鹏之翼承诺不向任何第三方泄露用户个人信息或其他商业信息。除非司法机关、监管机构或其他政府部门依据法律程序要求提供，鹏之翼将根据相关部门的要求提供相关信息资料，及时通知用户。</span>
+                </p>
+                <p><span>3、鹏之翼仅将东鹏评估官方网站作为链接列入网站进行展示，供用户浏览和参考。</span></p>
+                <p><span>4、您使用鹏之翼时，应遵守中国有关法律规定与本声明的内容，不得破坏鹏之翼运行安全，不得利用鹏之翼进行任何违法活动，不得损害鹏之翼所有者的合法权益。</span></p>
+                <p><span>5、鹏之翼所有原创内容的著作权属于北京东鹏资产评估事务所所有。任何机构或者个人未经北京东鹏书面许可，不得以任何形式使用前述内容。</span></p>
+                <p><span>您浏览和使用鹏之翼即视为您接受以上条款。鹏之翼在法律许可范围内有权对本声明进行解释和修改，并将以网站信息更新的方式另行通知。</span></p>
+                <p><span><br></span></p>
+            </div>
+        </div>
+        <div class="footer-content">
+            <p><span id = "footer-line">COPYRIGHT©2005-2020 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号</span></p>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">温馨提示</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="margin-left: 3%">
+                        <h6 id="tips-content"
+                            style="margin-top: 3%;font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; color: rgb(255, 0, 0)"></h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirm" class="whole-content" style="display: none">
+        <div class="header-content">
+            <div class="logo-content">
+                <img src="static/imgs/logo.png" alt="东鹏"/>
+                <div class="logo-bottom">
+                    <p style="font-family: 'STFangsong'">东鹏知识产权</p>
+                </div>
+            </div>
+            <div class="hh-content">
+                <p>获取产权评估报告</p>
+            </div>
+        </div>
+        <div class="div-content">
+            <div class="float-loading" id="loading2">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bgc-content">
+                <table class="table-content">
+                    <tr>
+                        <td>
+                            <label for="contacts">姓名：</label>
+                        </td>
+                        <td>
+                            <div class="input-content">
+                                <input type="text" class="form-control" id="contacts" name="contacts"
+                                       placeholder="请输入联系人">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="phone-num">手机号：</label>
+                        </td>
+                        <td>
+                            <div class="input-content">
+                                <input type="text" oninput="numberValid(this)" class="form-control" id="phone-num"
+                                       name="phoneNum" placeholder="请输入手机号">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="valid">验证码：</label>
+                        </td>
+                        <td class="last-td">
+                            <div class="input-content">
+                                <input type="text" class="form-control" id="valid" name="validCode"
+                                       placeholder="请输入验证码">
+                            </div>
+                            <div class="get-valid">
+                                <button id="valid-btn" type="button" class="btn btn-default">获取验证码</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="email">邮箱：</label>
+                        </td>
+                        <td>
+                            <div class="input-content">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button-content-cm">
+                                <input type="radio" id="select-radio" name="radio"/>&nbsp;<p onclick="selectService()">
+                                勾选《用户服务协议》</p>
+                                <button type="button" class="btn btn-primary button-my" id="confirm-btn">确 认</button>
+                                <a id="back-btn" href="javascript:void(0)">返回上一步</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalConfirm" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabelConfirm">温馨提示</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="margin-left: 3%">
+                        <h6 id="tips-content-cm"
+                            style="margin-top: 3%;font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; color: rgb(255, 0, 0)"></h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="successModal" data-backdrop="static" tabindex="-1" aria-labelledby="successLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successLabel-h">温馨提示</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 id="tips-content-success"
+                            style="font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif"></h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="success-btn">完成</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/js/constant.js"></script>
+<script src="static/js/jq/jquery-form.js"></script>
+<script src="static/js/onlineAssessment.js"></script>
+<script src="static/js/onlineAssessmentConfirm.js"></script>
+</html>

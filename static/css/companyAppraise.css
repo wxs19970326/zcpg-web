@@ -1,0 +1,244 @@
+.body-content {
+    margin-top: 3%;
+}
+
+.condition {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 3% 0;
+}
+
+.condition div {
+    margin-left: 2%;
+}
+
+.condition div:first-child {
+    margin-left: 0%;
+}
+
+.ui.selection.dropdown {
+    min-width: 7em;
+}
+
+.select-content {
+    width: 80px;
+    height: 30px;
+}
+
+.ui.table thead th {
+    background: #169bd5d9;
+}
+
+.ui.dimmer {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.mine-loading {
+    float: left;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 99999;
+    margin: 0;
+}
+
+.footer-content {
+    width: 100%;
+    margin: 3% 0 1% 0;
+    text-align: center;
+    font-family: '微软雅黑', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    color: #CCCCCC;
+}
+.page-link {
+    color: #000;
+    font-size: 14px;
+}
+
+.turn-page {
+    text-align: center;
+    width: 100%;
+    margin-top: 2%;
+}
+.mi {
+    height: 30px;
+}
+
+.eight-th {
+    width: 80px;
+}
+
+.six-th {
+    width: 60px;
+}
+
+.three-th {
+    width: 30px;
+}
+
+.seven-th {
+    width: 70px;
+}
+
+.one-th {
+    width: 100px;
+}
+
+.one-three-th {
+    width: 130px;
+}
+
+.detail {
+    display: block;
+    border-bottom: 1px solid black;
+}
+
+.myTb-th {
+    text-align: center;
+    font-size: 14px;
+}
+
+.ui.modal>.content {
+    padding: 1.5rem 0 1.5rem 0;
+}
+
+.modal-footer {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.myTb-th-eight {
+    width: 80px;
+}
+
+.me {
+    width: 1100px !important;
+}
+
+.me a {
+    color: black;
+}
+
+.myReport {
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+/*==========================*/
+.body-content1 {
+    display: flex;
+    margin-top: 3%;
+    width: 100%;
+}
+
+.left {
+    width: 93%;
+}
+
+.right {
+    width: 7%;
+    padding-left: 2%;
+}
+
+.right .phone img:hover {
+
+}
+
+.tables-cc {
+    width: 100%;
+    border-spacing: 0px !important;
+    display: table;
+    padding: 0;
+}
+
+.tables-cc tr td {
+    height: 50px;
+    padding: 0;
+}
+
+.label-td {
+    text-align: right;
+}
+
+.label-tr-last {
+    height: 120px;
+}
+
+.input-td {
+    text-align: left;
+}
+
+.file-up {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+input {
+    width: 100%;
+}
+
+.sel {
+    width: 100%;
+    height: 30px;
+}
+
+.upload-content {
+    height: 100%;
+    line-height: 130px;
+}
+
+#bottom-div {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+#bottom-div1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 4%;
+}
+
+.ui.input {
+    width: 100% !important;
+}
+.ui.selection.dropdown {
+    width: 100% !important;
+}
+
+/*.report-modal {*/
+/*    text-align: center;*/
+/*}*/
+.report-modal111 {
+    text-align: center;
+}
+.report-modal111 .text-content {
+    width: 70%;
+    margin: 0 auto;
+}
+/*.report-modal .text-content {*/
+/*    width: 70%;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.remind {
+    font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.valid-css {
+    border: 1px solid red;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>公司评估登陆界面</title>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/mine.css">
+    <link rel="stylesheet" href="static/css/login4appraise.css">
+    <script src="static/js/jq/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div class="whole-content">
+    <div class="header-content">
+        <div class="logo-content">
+            <img src="static/imgs/logo.png" alt="东鹏"/>
+            <div class="logo-bottom">
+                <p>东鹏知识产权</p>
+            </div>
+        </div>
+        <div class="h-content">
+            <p>知识产权线上评估</p>
+        </div>
+    </div>
+    <div class="body-content">
+        <div class="login-float-loading" id="loading">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <form action="" method="post" id="loginForm">
+            <table class="table-content">
+                <tr>
+                    <td>
+                        <label for="username">用户：</label>
+                    </td>
+                    <td>
+                        <div class="input-content">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="phone-num">手机号：</label>
+                    </td>
+                    <td>
+                        <div class="input-content">
+                            <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                                   class="form-control" id="phone-num" name="phone" placeholder="请输入手机号">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="valid">验证码：</label>
+                    </td>
+                    <td class="last-td">
+                        <div class="input-content">
+                            <input type="text" class="form-control" id="valid" name="validCode" placeholder="请输入验证码">
+                        </div>
+                        <div class="get-valid">
+                            <button id="valid-btn" type="button" class="btn btn-default">获取验证码</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="button-content">
+                            <button type="button" class="btn btn-primary btn-my" id="login-btn">登录</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">温馨提示</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="margin-left: 3%">
+                    <h6 id="tips-content"
+                        style="margin-top: 3%;font-family: open sans, Helvetica Neue, Helvetica, Arial, sans-serif; color: rgb(255, 0, 0)"></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/js/login4appraise.js"></script>
+<script src="static/js/constant.js"></script>
+</html>

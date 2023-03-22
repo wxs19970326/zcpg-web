@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>东鹏资产评估入口</title>
+</head>
+<link rel="stylesheet" href="static/css/mine.css">
+<body>
+
+</body>
+<script src="static/js/jq/jquery-3.4.1.min.js"></script>
+<script src="static/js/constant.js"></script>
+<script>
+    $(function () {
+        checkLogin();
+    });
+    function checkLogin() {
+        $.ajax({
+            type: 'post',
+            url : SERVICE_URL + '/asset/index',
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (vo) {
+                if (vo.code === RE_LOGIN || vo.code === OK){
+                    location.href = 'companyAppraise.html';
+                } else {
+                    location.href = 'login4appraise.html';
+                }
+            },
+            error:function () {
+                alert(SERVER_ERROR);
+            }
+        });
+    }
+</script>
+</html>

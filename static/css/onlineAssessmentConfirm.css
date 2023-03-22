@@ -1,0 +1,62 @@
+.hh-content {
+    margin-top: 6%;
+    margin-left: -13%;
+    width: 100%;
+    line-height: 64px;
+    text-align: center;
+    font-family: 'Arial Negreta', 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 32px;
+}
+
+.div-content {
+    margin-top: -4.5%;
+    width: 100%;
+}
+
+.bgc-content {
+    width: 58%;
+    margin: 0 auto;
+    background-color: #fff;
+    z-index: -1;
+    padding-top: 5%;
+    border-radius: 30px;
+    /*opacity: 0.5;*/
+}
+
+.button-my {
+    width: 90%;
+    height: 20%;
+    color:#FFFFFF;
+}
+
+.button-content-cm {
+    width: 100%;
+    margin: 6% 0 4% 0;
+    padding-left: 7%;
+}
+
+.button-content-cm p {
+    display: inline-block;
+    color: #666;
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    cursor: pointer;
+}
+.button-content-cm input {
+    width: 5%;
+}
+
+.button-content-cm a {
+    display: block;
+    padding: 0;
+    margin-top: 4%;
+    font-family: 'Arial Normal', 'Arial', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+}
+
