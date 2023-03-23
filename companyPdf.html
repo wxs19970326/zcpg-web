@@ -29,8 +29,27 @@
         </div>
     </div>
     <div class="footer-content">
-        <p><span>COPYRIGHT©2005-2020 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号</span></p>
+        <p><span id="footer-line"></span></p>
     </div>
 </div>
+<script src="static/js/jq/jquery-3.4.1.min.js"></script>
+<script src="static/js/constant.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            type: 'get',
+            url: SERVICE_URL + '/online/get/copyright',
+            xhrFields: {withCredentials: true},
+            success: function (vo) {
+                if (vo.code === OK) {
+                    $('#footer-line').text(vo.data);
+                } else {
+                }
+            },
+            error: function () {
+            }
+        })
+    });
+</script>
 </body>
 </html>

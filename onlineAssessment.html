@@ -125,6 +125,22 @@
                                 <label>委托人：</label>
                             </td>
                             <td>
+                                <input id="assignor" type="text" name="assignor" class="form-control table-input"/>
+                            </td>
+                            <td class="label-td">
+                                <label>评估目的：</label>
+                            </td>
+                            <td class="input-td">
+                                <select name="assetAimId" class="form-control" id="assetAimSel">
+                                    <option value="" selected>下拉选择</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-td table-label">
+                                <label>产权持有人：</label>
+                            </td>
+                            <td>
                                 <input id="titleHolder" type="text" name="titleHolder" class="form-control table-input"/>
                             </td>
                             <td class="label-td table-label">
@@ -135,12 +151,6 @@
                             </td>
                         </tr>
                         <tr>
-<!--                            <td class="label-td">-->
-<!--                                <label>主专利号：</label>-->
-<!--                            </td>-->
-<!--                            <td class="input-td">-->
-<!--                                <input id="mainPatentNo" type="text" name="mainPatentNo" oninput="numAndABC(this)" class="form-control table-input"/>-->
-<!--                            </td>-->
                             <td class="label-td">
                                 <label>评估对象：</label>
                             </td>
@@ -150,50 +160,44 @@
                                 </select>
                             </td>
                             <td class="label-td">
-                                <label>主专利名称：</label>
+                                <label>单位所属专利：</label>
                             </td>
                             <td class="input-td">
-<!--                                <input id="mainPatentName" type="text" name="mainPatentName" class="form-control table-input"/>-->
-                                <select name="mainPatentName" class="form-control" id="mainPatentName">
+                                <select name="mainPatentNo" class="form-control" id="mainPatentNo">
                                     <option value="" selected>下拉选择</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="label-td">
+                                <label>专利名称：</label>
+                            </td>
+                            <td class="input-td">
+                                <input disabled id="mainPatentName" type="text" name="mainPatentName" class="form-control table-input"/>
+                            </td>
+                            <td class="label-td">
                                 <label>专利类型：</label>
                             </td>
                             <td class="input-td">
-<!--                                <select name="patentId" class="form-control" id="patentSel">-->
-<!--                                    <option value="" selected>下拉选择</option>-->
-<!--                                </select>-->
-                                <input id="patentId" type="text" name="patentId" class="form-control table-input"/>
-                            </td>
-                            <td class="label-td">
-                                <label>剩余有限期：</label>
-                            </td>
-                            <td class="input-td">
-                                <select name="validDate" class="form-control" id="validDateSel">
-                                    <option value="2" selected>下拉选择</option>
-                                </select>
+                                <input disabled id="patentId" type="text" name="patentId" class="form-control table-input"/>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="label-td">
-                                <label>附属专利号：</label>
-                            </td>
-                            <td class="input-td">
-                                <input id="sec-patent-no" type="text" name="secPatentNo" oninput="numAndABC(this)" class="form-control table-input"/>
-                            </td>
-                            <td class="label-td">
-                                <label>附属专利名称：</label>
-                            </td>
-                            <td class="input-td">
-                                <input id="sec-patent-name" type="text" name="secPatentName" class="form-control table-input"/>
-                            </td>
-<!--                            <td style="width: 2%;cursor: pointer" id="add-input">➕</td>-->
-                            <td style="width: 2%;cursor: pointer" id="add-input"><span class="icon-plus"></span></td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td class="label-td">-->
+<!--                                <label>附属专利号：</label>-->
+<!--                            </td>-->
+<!--                            <td class="input-td">-->
+<!--                                <input id="sec-patent-no" type="text" name="secPatentNo" oninput="numAndABC(this)" class="form-control table-input"/>-->
+<!--                            </td>-->
+<!--                            <td class="label-td">-->
+<!--                                <label>附属专利名称：</label>-->
+<!--                            </td>-->
+<!--                            <td class="input-td">-->
+<!--                                <input id="sec-patent-name" type="text" name="secPatentName" class="form-control table-input"/>-->
+<!--                            </td>-->
+<!--&lt;!&ndash;                            <td style="width: 2%;cursor: pointer" id="add-input">➕</td>&ndash;&gt;-->
+<!--                            <td style="width: 2%;cursor: pointer" id="add-input"><span class="icon-plus"></span></td>-->
+<!--                        </tr>-->
                         <tbody id="add-content">
                         </tbody>
                         <tr>
@@ -206,21 +210,13 @@
                                 </select>
                             </td>
                             <td class="label-td">
-                                <label>评估目的：</label>
-                            </td>
-                            <td class="input-td">
-                                <select name="assetAimId" class="form-control" id="assetAimSel">
-                                    <option value="" selected>下拉选择</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label-td">
                                 <label>评估基准日：</label>
                             </td>
                             <td class="input-td">
                                 <input id="assRefTimeStr" type="text" name="assRefTimeStr" class="form-control table-input"/>
                             </td>
+                        </tr>
+                        <tr>
                             <td class="label-td">
                                 <label>上年度销售收入：</label>
                             </td>
@@ -228,8 +224,6 @@
                                 <input id="preYearIncome" type="text" name="preYearIncome" oninput="inputNumber(this)"
                                        placeholder="单位：万元（保留两位小数）" class="form-control table-input"/>
                             </td>
-                        </tr>
-                        <tr>
                             <td class="label-td">
                                 <label>本年度销售收入：</label>
                             </td>
@@ -237,12 +231,6 @@
                                 <input id="currYearIncome" type="text" name="currYearIncome" oninput="inputNumber(this)"
                                        placeholder="单位：万元（保留两位小数）" class="form-control table-input"/>
                             </td>
-                            <!--<td class="label-td">-->
-                            <!--<label>预评估结果：</label>-->
-                            <!--</td>-->
-                            <!--<td class="input-td">-->
-                            <!--<input type="text"/>-->
-                            <!--</td>-->
                         </tr>
                         <tr class="label-tr-last">
                             <td class="label-td">
