@@ -55,8 +55,8 @@ function initSelect() {
 
 function findPatentList() {
     var creditCode = $('#creditCode').val();
-    if (creditCode == null || creditCode === '') {
-        openModal(UN_FIND_CREDIT_CODE)
+    if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
+        // openModal(UN_FIND_CREDIT_CODE)
         return;
     }
     $.ajax({
