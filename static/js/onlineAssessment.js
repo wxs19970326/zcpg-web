@@ -2,6 +2,12 @@ $(function () {
     initFormUrl();
     initSelect()
     $('#assRefTimeStr').attr('placeholder', '格式：' + formatDateTime())
+    $('#creditCode').blur(function () {
+        findPatentList();
+    });
+    $('#mainPatentNo').change(function () {
+        findPatentDetail();
+    });
 });
 
 function initFormUrl() {
@@ -37,6 +43,61 @@ function initSelect() {
                 $('#phone-hover').text(vo.data.phoneNum);
                 $('#footer-line').text(vo.data.copyright);
                 initServiceStatement(vo.data.serviceStatement);
+            } else {
+                openModal(vo.message)
+            }
+        },
+        error: function () {
+            openModal(SERVER_ERROR)
+        }
+    })
+}
+
+function findPatentList() {
+    var creditCode = $('#creditCode').val();
+    if (creditCode == null || creditCode === '') {
+        openModal(UN_FIND_CREDIT_CODE)
+        return;
+    }
+    $.ajax({
+        type: 'post',
+        url: SERVICE_URL + '/online/get/patentList/' + creditCode,
+        xhrFields: {withCredentials: true},
+        success: function (vo) {
+            if (vo.code === OK) {
+                var patentItemList = vo.data;
+                console.log(patentItemList)
+                for (var item of patentItemList) {
+                    $('#mainPatentNo').append(`<option value="${item.patentNum}">${item.patentName}</option>`);
+                }
+            } else {
+                openModal(vo.message)
+            }
+        },
+        error: function () {
+            openModal(SERVER_ERROR)
+        }
+    })
+}
+
+function findPatentDetail() {
+    var mainPatentNo = $('#mainPatentNo').val();
+    if (mainPatentNo == null || mainPatentNo === '') {
+        // openModal(UN_FIND_MAIN_PATENT_NO)
+        $('#mainPatentName').val(null)
+        $('#patentId').val(null)
+        return;
+    }
+    $.ajax({
+        type: 'post',
+        url: SERVICE_URL + '/online/get/patentDetail/' + mainPatentNo,
+        xhrFields: {withCredentials: true},
+        success: function (vo) {
+            if (vo.code === OK) {
+                var patentDetail = vo.data;
+                console.log(patentDetail)
+                $('#mainPatentName').val(patentDetail.patentName)
+                $('#patentId').val(patentDetail.patentType)
             } else {
                 openModal(vo.message)
             }

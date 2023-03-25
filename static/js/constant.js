@@ -24,3 +24,5 @@ const ASSREF_TIME_STR_NO_VALID = '“评估基准日” 格式不正确';
 const ASSREF_TIME_STR_GT_CURR = '“评估基准日” 不能大于当前日期';
 const PRE_YEAR_INCOME_NULL = '“去年营业收入” 不能为空';
 const CURR_YEAR_INCOME_NULL = '“今年营业收入” 不能为空';
+const UN_FIND_CREDIT_CODE = '未找到统一社会信用代码';
+const UN_FIND_MAIN_PATENT_NO = '请选择专利';
