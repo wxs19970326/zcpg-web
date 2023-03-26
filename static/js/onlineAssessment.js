@@ -128,19 +128,19 @@ function findPatentDetail() {
                     for (var i = 0; i < patentDetail.length; i++) {
                         var item = patentDetail[i];
                         $('#patentListBody').append(`
-                        <tr>
-                            <th scope="row">${i+1}</th>
-                            <td>${item.applicationTime == null || item.applicationTime === '' ? '-' : item.applicationTime}</td>
-                            <td>${item.patentName == null || item.patentName === '' ? '-' : item.patentName}</td>
-                            <td>${item.patentType == null || item.patentType === '' ? '-' : item.patentType}</td>
-                            <td><a href="javascript:void(0)">${item.patentStatus == null || item.patentStatus === '' ? '-' : item.patentStatus}</a></td>
-                            <td>${item.patentNum == null || item.patentNum === '' ? '-' : item.patentNum}</td>
-                            <td>${item.pubNumber == null || item.pubNumber === '' ? '-' : item.pubNumber}</td>
-                            <td>${item.pubDate == null || item.pubDate === '' ? '-' : item.pubDate}</td>
-                        </tr>
-                    `);
+                            <tr>
+                                <th scope="row">${i+1}</th>
+                                <td>${item.applicationTime == null || item.applicationTime === '' ? '-' : item.applicationTime}</td>
+                                <td>${item.patentName == null || item.patentName === '' ? '-' : item.patentName}</td>
+                                <td>${item.patentType == null || item.patentType === '' ? '-' : item.patentType}</td>
+                                <td><a href="javascript:void(0)">${item.patentStatus == null || item.patentStatus === '' ? '-' : item.patentStatus}</a></td>
+                                <td>${item.patentNum == null || item.patentNum === '' ? '-' : item.patentNum}</td>
+                                <td>${item.pubNumber == null || item.pubNumber === '' ? '-' : item.pubNumber}</td>
+                                <td>${item.pubDate == null || item.pubDate === '' ? '-' : item.pubDate}</td>
+                            </tr>
+                        `);
                     }
-
+                    $('#patentListModal').modal('show')
                 }
             } else {
                 openModal(vo.message)
@@ -193,7 +193,6 @@ function openPatentListModal() {
         openModal(UN_FIND_MAIN_PATENT_NO);
     } else {
         findPatentDetail();
-        $('#patentListModal').modal('show')
     }
 }
 
