@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="static/css/onlineAssessmentConfirm.css">
     <link rel="stylesheet" href="static/css/style.css">
     <script src="static/js/jq/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-select.min.css"/>
+
+
 </head>
 <body>
 <form id="submit-form" method="post" class="form-group" enctype="multipart/form-data">
@@ -132,7 +135,7 @@
                             </td>
                             <td class="input-td">
                                 <select name="assetAimId" class="form-control" id="assetAimSel">
-                                    <option value="" selected>请选择</option>
+                                    <option value="">请选择</option>
                                 </select>
                             </td>
                         </tr>
@@ -156,31 +159,45 @@
                             </td>
                             <td class="input-td">
                                 <select name="assetObjId" class="form-control" id="assetObjId">
-                                    <option value="" selected>请选择</option>
+                                    <option value="">请选择</option>
                                 </select>
                             </td>
                             <td class="label-td">
                                 <label>单位所属专利：</label>
                             </td>
                             <td class="input-td">
-                                <select name="mainPatentNo" class="form-control" id="mainPatentNo">
-                                    <option value="" selected>请选择</option>
+                                <select name="mainPatentNo" multiple class="form-control selectpicker" id="mainPatentNo"
+                                        data-live-search="true" data-size="8" data-selected-text-format="count > 0" data-actions-box="true">
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="label-td">
-                                <label>专利名称：</label>
+                                <label>所属行业：</label>
                             </td>
-                            <td class="input-td">
-                                <textarea disabled id="mainPatentName" type="" name="mainPatentName" class="form-control table-input" style="height: 41px" placeholder="专利名称"></textarea>
+                            <td class="input-td" style="width: 278px">
+                                <select name="industryId" class="form-control" id="industrySel">
+                                    <option value="" selected>请选择</option>
+                                </select>
                             </td>
                             <td class="label-td">
-                                <label>专利类型：</label>
+                                <label>已选专利：</label>
                             </td>
-                            <td class="input-td">
-                                <input disabled id="patentId" type="text" name="patentId" class="form-control table-input" placeholder="专利类型"/>
+                            <td class="label-td" style="text-align: left">
+                                <button class="btn btn-outline-secondary btn-sm" style="width: 410px" id="findPatentListBtn">点击查看已选专利列表</button>
                             </td>
+<!--                            <td class="label-td">-->
+<!--                                <label>专利名称：</label>-->
+<!--                            </td>-->
+<!--                            <td class="input-td">-->
+<!--                                <textarea disabled id="mainPatentName" type="" name="mainPatentName" class="form-control table-input" style="height: 41px" placeholder="专利名称"></textarea>-->
+<!--                            </td>-->
+<!--                            <td class="label-td">-->
+<!--                                <label>专利类型：</label>-->
+<!--                            </td>-->
+<!--                            <td class="input-td">-->
+<!--                                <input disabled id="patentId" type="text" name="patentId" class="form-control table-input" placeholder="专利类型"/>-->
+<!--                            </td>-->
                         </tr>
 <!--                        <tr>-->
 <!--                            <td class="label-td">-->
@@ -202,21 +219,11 @@
                         </tbody>
                         <tr>
                             <td class="label-td">
-                                <label>所属行业：</label>
-                            </td>
-                            <td class="input-td" style="width: 278px">
-                                <select name="industryId" class="form-control" id="industrySel">
-                                    <option value="" selected>请选择</option>
-                                </select>
-                            </td>
-                            <td class="label-td">
                                 <label>评估基准日：</label>
                             </td>
                             <td class="input-td">
                                 <input id="assRefTimeStr" type="text" name="assRefTimeStr" class="form-control table-input"/>
                             </td>
-                        </tr>
-                        <tr>
                             <td class="label-td">
                                 <label>上年度销售收入：</label>
                             </td>
@@ -224,6 +231,8 @@
                                 <input id="preYearIncome" type="text" name="preYearIncome" oninput="inputNumber(this)"
                                        placeholder="单位：万元（保留两位小数）" class="form-control table-input"/>
                             </td>
+                        </tr>
+                        <tr>
                             <td class="label-td">
                                 <label>本年度销售收入：</label>
                             </td>
@@ -314,6 +323,39 @@
         <div class="footer-content">
             <p><span id="footer-line">COPYRIGHT©2005-2020 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号</span></p>
         </div>
+        <div class="modal fade" id="patentListModal" tabindex="-1" aria-labelledby="patentListModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="patentListModalLabel">所选专利列表</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" style="width: 110px">申请日</th>
+                                <th scope="col">专利名称</th>
+                                <th scope="col" style="width: 90px">专利类型</th>
+                                <th scope="col" style="width: 90px">专利状态</th>
+                                <th scope="col">申请号</th>
+                                <th scope="col" style="width: 120px">公开(公布)号</th>
+                                <th scope="col" style="width: 120px">公开(公告)日</th>
+                            </tr>
+                            </thead>
+                            <tbody id="patentListBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="closePatentListModal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -333,6 +375,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <div id="confirm" class="whole-content" style="display: none">
         <div class="header-content">
@@ -458,7 +501,9 @@
     </div>
 </form>
 </body>
+<script src="static/bootstrap/js/popper.min.js"></script>
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/bootstrap/js/bootstrap-select.min.js"></script>
 <script src="static/js/constant.js"></script>
 <script src="static/js/jq/jquery-form.js"></script>
 <script src="static/js/onlineAssessment.js"></script>

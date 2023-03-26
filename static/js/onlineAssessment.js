@@ -1,13 +1,25 @@
 $(function () {
     initFormUrl();
+    $('#mainPatentNo').selectpicker({
+        actionsBox: true,
+        dropdownAlignRight: 'auto',
+        width: 410
+    });
     initSelect()
     $('#assRefTimeStr').attr('placeholder', '格式：' + formatDateTime())
     $('#creditCode').blur(function () {
         findPatentList();
     });
-    $('#mainPatentNo').change(function () {
-        findPatentDetail();
+    // $('#mainPatentNo').change(function () {
+    //     findPatentDetail();
+    // });
+    $('#findPatentListBtn').click(function () {
+        openPatentListModal();
     });
+    $('#closePatentListModal').click(function () {
+        closePatentListModal();
+    });
+    $('#patentListModal').on('hide.bs.modal', function () {  $(".modal-backdrop").remove(); });
 });
 
 function initFormUrl() {
@@ -54,6 +66,7 @@ function initSelect() {
 }
 
 function findPatentList() {
+    $('#mainPatentNo').empty();
     var creditCode = $('#creditCode').val();
     if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
         // openModal(UN_FIND_CREDIT_CODE)
@@ -70,6 +83,7 @@ function findPatentList() {
                 for (var item of patentItemList) {
                     $('#mainPatentNo').append(`<option value="${item.patentNum}">${item.patentName}</option>`);
                 }
+                $('#mainPatentNo').selectpicker('refresh');
             } else {
                 openModal(vo.message)
             }
@@ -81,23 +95,53 @@ function findPatentList() {
 }
 
 function findPatentDetail() {
+    $('#patentListBody').empty();
+    console.log($('#mainPatentNo').val())
     var mainPatentNo = $('#mainPatentNo').val();
-    if (mainPatentNo == null || mainPatentNo === '') {
-        // openModal(UN_FIND_MAIN_PATENT_NO)
-        $('#mainPatentName').val(null)
-        $('#patentId').val(null)
-        return;
+    // if (mainPatentNo == null || mainPatentNo === '' || mainPatentNo.length === 0) {
+    //     // openModal(UN_FIND_MAIN_PATENT_NO)
+    //     $('#mainPatentName').val(null)
+    //     $('#patentId').val(null)
+    //     return;
+    // }
+    var patentNos = '';
+    for (var i = 0; i < mainPatentNo.length; i++) {
+        if (i === mainPatentNo.length - 1) {
+            patentNos = patentNos + mainPatentNo[i];
+        } else {
+            patentNos = patentNos + mainPatentNo[i] + ",";
+        }
     }
+    console.log(patentNos)
     $.ajax({
         type: 'post',
-        url: SERVICE_URL + '/online/get/patentDetail/' + mainPatentNo,
+        url: SERVICE_URL + '/online/get/patentDetail/',
+        data: {'patentNos': patentNos},
         xhrFields: {withCredentials: true},
         success: function (vo) {
             if (vo.code === OK) {
                 var patentDetail = vo.data;
                 console.log(patentDetail)
-                $('#mainPatentName').val(patentDetail.patentName)
-                $('#patentId').val(patentDetail.patentType)
+                if (patentDetail != null) {
+                    // $('#mainPatentName').val(patentDetail.patentName)
+                    // $('#patentId').val(patentDetail.patentType)
+                    for (var i = 0; i < patentDetail.length; i++) {
+                        var item = patentDetail[i];
+                        $('#patentListBody').append(`
+                        <tr>
+                            <th scope="row">${i+1}</th>
+                            <td>${item.applicationTime == null || item.applicationTime === '' ? '-' : item.applicationTime}</td>
+                            <td>${item.patentName == null || item.patentName === '' ? '-' : item.patentName}</td>
+                            <td>${item.patentType == null || item.patentType === '' ? '-' : item.patentType}</td>
+                            <td><a href="javascript:void(0)">${item.patentStatus == null || item.patentStatus === '' ? '-' : item.patentStatus}</a></td>
+                            <td>${item.patentNum == null || item.patentNum === '' ? '-' : item.patentNum}</td>
+                            <td>${item.pubNumber == null || item.pubNumber === '' ? '-' : item.pubNumber}</td>
+                            <td>${item.pubDate == null || item.pubDate === '' ? '-' : item.pubDate}</td>
+                        </tr>
+                    `);
+                    }
+
+                }
             } else {
                 openModal(vo.message)
             }
@@ -141,6 +185,20 @@ function openModal(msg) {
     $('#tips-content').empty();
     $('#tips-content').append(msg);
     $('#exampleModal').modal('show')
+}
+
+function openPatentListModal() {
+    var mainPatentNo = $('#mainPatentNo').val();
+    if (mainPatentNo == null || mainPatentNo === '' || mainPatentNo.length === 0) {
+        openModal(UN_FIND_MAIN_PATENT_NO);
+    } else {
+        findPatentDetail();
+        $('#patentListModal').modal('show')
+    }
+}
+
+function closePatentListModal() {
+    $(".modal-backdrop").remove();
 }
 
 function uploadLicense() {
