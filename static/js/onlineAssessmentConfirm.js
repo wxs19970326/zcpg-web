@@ -130,7 +130,6 @@ $('#confirm-btn').click(function () {
         }
     }
     $('#mainPatentNo').val(patentNos);
-    console.log(patentNos);
     $('#submit-form').submit()
 });
 $('#submit-form').ajaxForm(function (data) {
