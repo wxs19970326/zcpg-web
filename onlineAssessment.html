@@ -121,14 +121,14 @@
                         </div>
                     </div>
                 </div>
-
+                <input type="hidden" name="mainPatentNo" id="mainPatentNo" value=""/>
                 <table class="tables-cc" id="tab">
                         <tr>
                             <td class="label-td table-label">
                                 <label>委托人：</label>
                             </td>
                             <td>
-                                <input id="assignor" type="text" name="assignor" class="form-control table-input" placeholder="请输入委托人"/>
+                                <input id="assignor" type="text" name="mainPatentName" class="form-control table-input" placeholder="请输入委托人"/>
                             </td>
                             <td class="label-td">
                                 <label>评估目的：</label>
@@ -166,7 +166,7 @@
                                 <label>单位所属专利：</label>
                             </td>
                             <td class="input-td">
-                                <select name="mainPatentNo" multiple class="form-control selectpicker" id="mainPatentNo"
+                                <select name="mainPatentNoSelect" multiple class="form-control selectpicker" id="mainPatentNoSelect"
                                         data-live-search="true" data-size="8" data-selected-text-format="count > 0" data-actions-box="true">
                                 </select>
                             </td>
@@ -177,7 +177,7 @@
                             </td>
                             <td class="input-td" style="width: 278px">
                                 <select name="industryId" class="form-control" id="industrySel">
-                                    <option value="" selected>请选择</option>
+                                    <option value="1" selected>请选择</option>
                                 </select>
                             </td>
                             <td class="label-td">

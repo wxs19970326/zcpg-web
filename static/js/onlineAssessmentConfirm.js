@@ -120,6 +120,17 @@ $('#confirm-btn').click(function () {
         openModalC('请查看并勾选《用户服务协议》');
         return
     }
+    var patentNos = '';
+    var mainPatentNo = $('#mainPatentNoSelect').val();
+    for (var i = 0; i < mainPatentNo.length; i++) {
+        if (i === mainPatentNo.length - 1) {
+            patentNos = patentNos + mainPatentNo[i];
+        } else {
+            patentNos = patentNos + mainPatentNo[i] + ",";
+        }
+    }
+    $('#mainPatentNo').val(patentNos);
+    console.log(patentNos);
     $('#submit-form').submit()
 });
 $('#submit-form').ajaxForm(function (data) {

@@ -1,11 +1,15 @@
 $(function () {
     initFormUrl();
-    $('#mainPatentNo').selectpicker({
+    $('#mainPatentNoSelect').selectpicker({
         actionsBox: true,
         dropdownAlignRight: 'auto',
         width: 410
     });
     initSelect()
+    init();
+});
+
+function init() {
     $('#assRefTimeStr').attr('placeholder', '格式：' + formatDateTime())
     $('#creditCode').blur(function () {
         findPatentList();
@@ -19,8 +23,10 @@ $(function () {
     $('#closePatentListModal').click(function () {
         closePatentListModal();
     });
-    $('#patentListModal').on('hide.bs.modal', function () {  $(".modal-backdrop").remove(); });
-});
+    $('#patentListModal').on('hide.bs.modal', function () {
+        $(".modal-backdrop").remove();
+    });
+}
 
 function initFormUrl() {
     $('#submit-form').attr('action', SERVICE_URL + '/online/submit');
@@ -66,7 +72,7 @@ function initSelect() {
 }
 
 function findPatentList() {
-    $('#mainPatentNo').empty();
+    $('#mainPatentNoSelect').empty();
     var creditCode = $('#creditCode').val();
     if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
         // openModal(UN_FIND_CREDIT_CODE)
@@ -81,9 +87,9 @@ function findPatentList() {
                 var patentItemList = vo.data;
                 console.log(patentItemList)
                 for (var item of patentItemList) {
-                    $('#mainPatentNo').append(`<option value="${item.patentNum}">${item.patentName}</option>`);
+                    $('#mainPatentNoSelect').append(`<option value="${item.patentNum}">${item.patentName}</option>`);
                 }
-                $('#mainPatentNo').selectpicker('refresh');
+                $('#mainPatentNoSelect').selectpicker('refresh');
             } else {
                 openModal(vo.message)
             }
@@ -96,14 +102,15 @@ function findPatentList() {
 
 function findPatentDetail() {
     $('#patentListBody').empty();
-    console.log($('#mainPatentNo').val())
-    var mainPatentNo = $('#mainPatentNo').val();
-    // if (mainPatentNo == null || mainPatentNo === '' || mainPatentNo.length === 0) {
-    //     // openModal(UN_FIND_MAIN_PATENT_NO)
-    //     $('#mainPatentName').val(null)
-    //     $('#patentId').val(null)
-    //     return;
-    // }
+    console.log($('#mainPatentNoSelect').val())
+    var mainPatentNo = $('#mainPatentNoSelect').val();
+    if (mainPatentNo == null || mainPatentNo === '' || mainPatentNo.length === 0) {
+        openModal(UN_FIND_MAIN_PATENT_NO)
+        // $('#mainPatentName').val(null)
+        // $('#patentId').val(null)
+        console.log(111111)
+        return;
+    }
     var patentNos = '';
     for (var i = 0; i < mainPatentNo.length; i++) {
         if (i === mainPatentNo.length - 1) {
@@ -140,6 +147,7 @@ function findPatentDetail() {
                             </tr>
                         `);
                     }
+                    console.log("请求成功...准备打开modal")
                     $('#patentListModal').modal('show')
                 }
             } else {
@@ -188,7 +196,7 @@ function openModal(msg) {
 }
 
 function openPatentListModal() {
-    var mainPatentNo = $('#mainPatentNo').val();
+    var mainPatentNo = $('#mainPatentNoSelect').val();
     if (mainPatentNo == null || mainPatentNo === '' || mainPatentNo.length === 0) {
         openModal(UN_FIND_MAIN_PATENT_NO);
     } else {
@@ -260,10 +268,9 @@ function convertPage(param) {
 
 function checkForm() {
     let titleHolder = $('#titleHolder').val();
+    let assignor = $('#assignor').val();
     let creditCode = $('#creditCode').val();
-    let mainPatentNo = $('#mainPatentName').val();
-    let mainPatentName = $('#mainPatentName').text();
-    let patentSel = $('#patentSel').val();
+    let mainPatentNoSelect = $('#mainPatentNoSelect').val();
     let assetObjId = $('#assetObjId').val();
     let validDateSel = $('#validDateSel').val();
     let industrySel = $('#industrySel').val();
@@ -271,7 +278,13 @@ function checkForm() {
     let assRefTimeStr = $('#assRefTimeStr').val();
     let preYearIncome = $('#preYearIncome').val();
     let currYearIncome = $('#currYearIncome').val();
-    if (titleHolder === null || titleHolder === '') {
+    if (assignor == null || assignor === '') {
+        res(ASSIGNOR_NULL);
+        return false
+    } else if (assetAimSel === null || assetAimSel === '') {
+        res(ASSET_AIM_SEL_NULL);
+        return false
+    } else if (titleHolder === null || titleHolder === '') {
         res(TITLE_HOLDER_NULL);
         return false
     } else if (creditCode === null || creditCode === '') {
@@ -283,24 +296,12 @@ function checkForm() {
     } else if (assetObjId == null || assetObjId === '') {
         res('请选择评估对象');
         return false
-    } /*else if (mainPatentNo === null || mainPatentNo === '') {
-        res(MAIN_PATENT_NO_NULL);
-        return false
-    } */else if (mainPatentNo == null || mainPatentNo === '') {
+    } else if (mainPatentNoSelect == null || mainPatentNoSelect === '' || mainPatentNoSelect.length === 0) {
         res(MAIN_PATENT_NAME_NULL);
-        return false
-    } else if (patentSel === null || patentSel === '') {
-        res(PATENT_SEL_NULL);
-        return false
-    } else if (validDateSel === null || validDateSel === '') {
-        res(VALID_DATE_SEL_NULL);
         return false
     }
     if (industrySel === null || industrySel === '') {
         res(INDUSTRY_SEL_NULL);
-        return false
-    } else if (assetAimSel === null || assetAimSel === '') {
-        res(ASSET_AIM_SEL_NULL);
         return false
     } else if (assRefTimeStr === null || assRefTimeStr === '') {
         res(ASSREF_TIME_STR_NULL);
@@ -387,21 +388,21 @@ function compareTime(timeStr) {
     return time <= new Date()
 }
 
-$('#validDateSel').click(function () {
-    if ($('#patentSel').val() === '' || $('#patentSel').val() === '' === null) {
-        openModal('请先选择“专利类型”')
-    }
-});
-$('#patentSel').change(function () {
-    let name = $(this).find('option:selected').text();
-    if (name === INVETN_PATENT) {
-        initDate(20)
-    } else if (name === UTILITY_MODEL || name === OUTTER_DEGISER) {
-        initDate(10)
-    } else if (name === SELECT_OPTION) {
-        initDate(0)
-    }
-});
+// $('#validDateSel').click(function () {
+//     if ($('#patentSel').val() === '' || $('#patentSel').val() === '' === null) {
+//         openModal('请先选择“专利类型”')
+//     }
+// });
+// $('#patentSel').change(function () {
+//     let name = $(this).find('option:selected').text();
+//     if (name === INVETN_PATENT) {
+//         initDate(20)
+//     } else if (name === UTILITY_MODEL || name === OUTTER_DEGISER) {
+//         initDate(10)
+//     } else if (name === SELECT_OPTION) {
+//         initDate(0)
+//     }
+// });
 
 function initDate(years) {
     if (years !== undefined) {
