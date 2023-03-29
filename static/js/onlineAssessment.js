@@ -30,6 +30,13 @@ function init() {
 
 function initFormUrl() {
     $('#submit-form').attr('action', SERVICE_URL + '/online/submit');
+    console.log(111)
+    $('#checkedIndustry').click(function () {
+        openIndustryTree();
+    });
+    $('#select-industry-confirm').click(function () {
+        confirmIndustryId();
+    });
 }
 
 function initSelect() {
@@ -134,7 +141,7 @@ function findPatentDetail() {
                         var item = patentDetail[i];
                         $('#patentListBody').append(`
                             <tr>
-                                <th scope="row">${i+1}</th>
+                                <th scope="row">${i + 1}</th>
                                 <td>${item.applicationTime == null || item.applicationTime === '' ? '-' : item.applicationTime}</td>
                                 <td>${item.patentName == null || item.patentName === '' ? '-' : item.patentName}</td>
                                 <td>${item.patentType == null || item.patentType === '' ? '-' : item.patentType}</td>
@@ -269,7 +276,7 @@ function checkForm() {
     let creditCode = $('#creditCode').val();
     let mainPatentNoSelect = $('#mainPatentNoSelect').val();
     let assetObjId = $('#assetObjId').val();
-    let validDateSel = $('#validDateSel').val();
+    let validDate = $('#validDate').val();
     let industrySel = $('#industrySel').val();
     let assetAimSel = $('#assetAimSel').val();
     let assRefTimeStr = $('#assRefTimeStr').val();
@@ -296,6 +303,9 @@ function checkForm() {
     } else if (mainPatentNoSelect == null || mainPatentNoSelect === '' || mainPatentNoSelect.length === 0) {
         res(MAIN_PATENT_NAME_NULL);
         return false
+    } else if (validDate == null || validDate === '') {
+        res(VALID_DATE_SEL_NULL);
+        return false;
     }
     if (industrySel === null || industrySel === '') {
         res(INDUSTRY_SEL_NULL);
@@ -431,6 +441,10 @@ function inputNumber(e) {
     e.value = e.value.toString().match(/^\d+(?:\.\d{0,2})?/)
 }
 
+function inputNumberD(e) {
+    e.value = e.value.replace(/[^0-9]/g, '');
+}
+
 function numberValid(e) {
     e.value = e.value.replace(/[^\d]/g, ' ')
 }
@@ -447,4 +461,12 @@ function formatDateTime() {
     var d = date.getDate();
     d = d < 10 ? ('0' + d) : d;
     return y + '-' + m + '-' + d;
+}
+
+function openIndustryTree() {
+    $('#industryTreeModal').modal('show');
+}
+
+function confirmIndustryId() {
+    $('#industryTreeModal').modal('hide');
 }

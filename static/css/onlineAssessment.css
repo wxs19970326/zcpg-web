@@ -219,3 +219,86 @@ input {
     font-size: 12px;
     color: #CCCCCC;
 }
+
+#checkedNameList {
+    min-height: 34px;
+    height: auto;
+}
+
+.dropdown-toggle::after{
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    /*border-color: transparent;*/
+    /*border-style: solid;*/
+    /*border-width: 4px 4px 0 4px;*/
+    /*border-top-color: #555;*/
+    margin-top: 0;
+}
+.dropdown-menu {
+    text-align: center;
+    left: 15px;
+    top: auto;
+    padding: 0;
+    margin: 0;
+}
+/* 更改滚动条样式 */
+.dropdown-menu::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 4px;
+}
+/* 更改滚动条的轨道样式 */
+.dropdown-menu::-webkit-scrollbar-track {
+    border-radius: 4px;
+}
+/* 更改滚动条的滑块样式 */
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: #d6d6d6;
+    border-radius: 4px;
+}
+/* 菜单中的选项 */
+.dropdown-menu > li > label {
+    width: 100%;
+    padding: 2px 12px;
+    margin: 0;
+    font-weight: 400;
+}
+/* 鼠标悬停处的选项时更改背景色 */
+.dropdown-menu > li:hover {
+    background-color: #ebebeb;
+}
+/* 一级菜单中的右箭头小图标 */
+.dropdown-submenu > label::after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 4px 0 4px 4px;
+    border-left-color: #ccc;
+    margin-top: 4px;
+}
+.dropdown-submenu:hover > label::after {
+    border-left-color: #000;
+}
+/* 二级菜单的位置 */
+.dropdown-submenu > .dropdown-menu {
+    top: -1px;
+    left: 100%;
+    height: 170px;
+    margin: 0;
+    border-left: none;
+    overflow: auto;
+}
+/* 二级菜单中的多选框向右浮动 */
+.dropdown-submenu > .dropdown-menu input {
+    float: right;
+}
+/* 鼠标悬停在一级菜单的选项时显示对应的二级菜单 */
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}

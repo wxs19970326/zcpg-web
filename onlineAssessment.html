@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="static/css/style.css">
     <script src="static/js/jq/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-treeview.min.css"/>
 
 
 </head>
@@ -134,7 +135,7 @@
                                 <label>评估目的：</label>
                             </td>
                             <td class="input-td">
-                                <select name="assetAimId" class="form-control" id="assetAimSel">
+                                <select name="assetAimId" class="form-control" id="assetAimSel"  style="color: #999">
                                     <option value="">请选择</option>
                                 </select>
                             </td>
@@ -158,26 +159,40 @@
                                 <label>评估对象：</label>
                             </td>
                             <td class="input-td">
-                                <select name="assetObjId" class="form-control" id="assetObjId">
+                                <select name="assetObjId" class="form-control" id="assetObjId" style="color: #999">
                                     <option value="">请选择</option>
                                 </select>
                             </td>
-                            <td class="label-td">
-                                <label>单位所属专利：</label>
-                            </td>
-                            <td class="input-td">
-                                <select name="mainPatentNoSelect" multiple class="form-control selectpicker" id="mainPatentNoSelect"
-                                        data-live-search="true" data-size="8" data-selected-text-format="count > 0" data-actions-box="true">
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
                             <td class="label-td">
                                 <label>所属行业：</label>
                             </td>
                             <td class="input-td" style="width: 278px">
                                 <select name="industryId" class="form-control" id="industrySel">
-                                    <option value="1" selected>请选择</option>
+                                    <optgroup label="Swedish Cars">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                    </optgroup>
+                                    <optgroup label="German Cars">
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </optgroup>
+                                </select>
+
+                            </td>
+<!--                            <td class="label-td">-->
+<!--                                <div class=" dropdown">-->
+<!--                                    <input type="hidden" id="checkedIndustryName">-->
+<!--                                    <a type="text" id="checkedIndustry" class="form-control" onclick="openIndustryTree()"></a>-->
+<!--                                </div>-->
+<!--                            </td>-->
+                        </tr>
+                        <tr>
+                            <td class="label-td">
+                                <label>单位所属专利：</label>
+                            </td>
+                            <td class="input-td">
+                                <select style="background: #ffffff" name="mainPatentNoSelect" multiple class="form-control selectpicker" id="mainPatentNoSelect"
+                                        data-live-search="true" data-size="8" data-selected-text-format="count > 0" data-actions-box="true">
                                 </select>
                             </td>
                             <td class="label-td">
@@ -185,7 +200,7 @@
                             </td>
                             <td class="label-td" style="text-align: left">
 <!--                                <button class="btn btn-outline-secondary btn-sm" style="width: 410px" id="findPatentListBtn">点击查看已选专利列表</button>-->
-                                <a href="javascript:void(0);" class="btn btn-outline-info btn-sm" style="width: 410px" id="findPatentListBtn">点击查看已选列表</a>
+                                <a href="javascript:void(0);" class="btn btn-info btn-sm" style="width: 410px" id="findPatentListBtn">点击查看已选列表</a>
                             </td>
 <!--                            <td class="label-td">-->
 <!--                                <label>专利名称：</label>-->
@@ -220,11 +235,22 @@
                         </tbody>
                         <tr>
                             <td class="label-td">
+                                <label>剩余有限期：</label>
+                            </td>
+                            <td class="input-td">
+<!--                                <select name="validDate" class="form-control" id="validDateSel">-->
+<!--                                    <option value="2" selected>下拉选择</option>-->
+<!--                                </select>-->
+                                <input name="validDate" class="form-control" id="validDate" placeholder="例如：5" oninput="inputNumberD(this)"/>
+                            </td>
+                            <td class="label-td">
                                 <label>评估基准日：</label>
                             </td>
                             <td class="input-td">
                                 <input id="assRefTimeStr" type="text" name="assRefTimeStr" class="form-control table-input"/>
                             </td>
+                        </tr>
+                        <tr>
                             <td class="label-td">
                                 <label>上年度销售收入：</label>
                             </td>
@@ -232,8 +258,6 @@
                                 <input id="preYearIncome" type="text" name="preYearIncome" oninput="inputNumber(this)"
                                        placeholder="单位：万元（保留两位小数）" class="form-control table-input"/>
                             </td>
-                        </tr>
-                        <tr>
                             <td class="label-td">
                                 <label>本年度销售收入：</label>
                             </td>
@@ -324,6 +348,26 @@
         <div class="footer-content">
             <p><span id="footer-line">COPYRIGHT©2005-2020 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号</span></p>
         </div>
+        <div class="modal fade" id="industryTreeModal" tabindex="-1" aria-labelledby="industryTreeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="industryTreeModalLabel">温馨提示</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="div_group" class="group_tree">
+<!--                            <div class="div_group" id="div_group"></div>-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="select-industry-confirm">确 认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="patentListModal" tabindex="-1" aria-labelledby="patentListModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
@@ -376,7 +420,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div id="confirm" class="whole-content" style="display: none">
         <div class="header-content">
@@ -460,7 +503,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="exampleModalConfirm" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -481,8 +523,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="successModal" data-backdrop="static" tabindex="-1" aria-labelledby="successLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="successModal" data-backdrop="static" tabindex="-1" aria-labelledby="successLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -506,6 +547,7 @@
 <script src="static/bootstrap/js/popper.min.js"></script>
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
 <script src="static/bootstrap/js/bootstrap-select.min.js"></script>
+<script src="static/bootstrap/js/bootstrap-treeview.min.js"></script>
 <script src="static/js/constant.js"></script>
 <script src="static/js/jq/jquery-form.js"></script>
 <script src="static/js/onlineAssessment.js"></script>
