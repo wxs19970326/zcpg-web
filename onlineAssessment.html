@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="static/css/style.css">
     <script src="static/js/jq/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap-select.min.css"/>
-    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-treeview.min.css"/>
 
 
 </head>
@@ -135,7 +134,7 @@
                                 <label>评估目的：</label>
                             </td>
                             <td class="input-td">
-                                <select name="assetAimId" class="form-control" id="assetAimSel"  style="color: #999">
+                                <select name="assetAimId" class="form-control" id="assetAimSel">
                                     <option value="">请选择</option>
                                 </select>
                             </td>
@@ -159,32 +158,26 @@
                                 <label>评估对象：</label>
                             </td>
                             <td class="input-td">
-                                <select name="assetObjId" class="form-control" id="assetObjId" style="color: #999">
+                                <select name="assetObjId" class="form-control" id="assetObjId">
                                     <option value="">请选择</option>
                                 </select>
                             </td>
                             <td class="label-td">
                                 <label>所属行业：</label>
                             </td>
-                            <td class="input-td" style="width: 278px">
-                                <select name="industryId" class="form-control" id="industrySel">
-                                    <optgroup label="Swedish Cars">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                    </optgroup>
-                                    <optgroup label="German Cars">
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </optgroup>
-                                </select>
-
-                            </td>
 <!--                            <td class="label-td">-->
-<!--                                <div class=" dropdown">-->
-<!--                                    <input type="hidden" id="checkedIndustryName">-->
-<!--                                    <a type="text" id="checkedIndustry" class="form-control" onclick="openIndustryTree()"></a>-->
+<!--                                <div class="input-group">-->
+<!--                                    <input type="text" class="form-control" disabled placeholder="请选择"  aria-describedby="basic-addon2"/>-->
+<!--                                    <div class="input-group-append">-->
+<!--                                        <button type="button" id="checkedIndustry" class="input-group-text btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="openIndustryTree()">选择</button>-->
+<!--                                    </div>-->
 <!--                                </div>-->
 <!--                            </td>-->
+                            <td class="input-td" style="width: 278px">
+                                <select name="industryId" class="form-control" id="industrySel">
+                                    <option value="1" selected>下拉选择</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="label-td">
@@ -349,18 +342,15 @@
             <p><span id="footer-line">COPYRIGHT©2005-2020 东鹏知识产权运营管理（北京）有限公司 ALL RIGHT RESERVED 版权所有 |京ICP备20032028号</span></p>
         </div>
         <div class="modal fade" id="industryTreeModal" tabindex="-1" aria-labelledby="industryTreeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-scrollable" style="min-height: 350px">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="industryTreeModalLabel">温馨提示</h5>
+                        <h5 class="modal-title" id="industryTreeModalLabel">选择行业</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div id="div_group" class="group_tree">
-<!--                            <div class="div_group" id="div_group"></div>-->
-                        </div>
+                    <div id="container" class="modal-body">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="select-industry-confirm">确 认</button>
@@ -547,7 +537,6 @@
 <script src="static/bootstrap/js/popper.min.js"></script>
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
 <script src="static/bootstrap/js/bootstrap-select.min.js"></script>
-<script src="static/bootstrap/js/bootstrap-treeview.min.js"></script>
 <script src="static/js/constant.js"></script>
 <script src="static/js/jq/jquery-form.js"></script>
 <script src="static/js/onlineAssessment.js"></script>
