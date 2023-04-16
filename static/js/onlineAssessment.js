@@ -5,6 +5,11 @@ $(function () {
         dropdownAlignRight: 'auto',
         width: 410
     });
+    $('#industrySel').selectpicker({
+        actionsBox: true,
+        dropdownAlignRight: 'auto',
+        width: 410
+    });
     initSelect()
     init();
 });
@@ -64,7 +69,7 @@ function initSelect() {
                 for (var item of evalObj) {
                     $('#assetObjId').append(`<option value="${item.dictValue}">${item.dictLabel}</option>`);
                 }
-
+                $('#industrySel').selectpicker('refresh');
                 $('#phone-hover').text(vo.data.phoneNum);
                 $('#footer-line').text(vo.data.copyright);
                 initServiceStatement(vo.data.serviceStatement);

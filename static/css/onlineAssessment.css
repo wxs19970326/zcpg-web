@@ -238,7 +238,7 @@ input {
     margin-top: 0;
 }
 .dropdown-menu {
-    text-align: center;
+    /*text-align: center;*/
     left: 15px;
     top: auto;
     padding: 0;

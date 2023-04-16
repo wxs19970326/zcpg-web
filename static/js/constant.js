@@ -1,7 +1,7 @@
 const OK = '0000';
 const NOT_LOGIN = '2035';
 const RE_LOGIN = '2045';
-const SERVICE_URL = 'http://localhost:8888';
+const SERVICE_URL = 'http://localhost:8080/admin';
 const SERVER_ERROR = '服务器出错了';
 const INPUT_IS_NULL = '请将现有输入框填写完整';
 const SEC_PATENT_NO = '有未填 “附属专利编码” 输入框, 请补全后再进行下一步';
