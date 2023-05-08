@@ -87,12 +87,16 @@ function findPatentList() {
     $('#mainPatentNoSelect').empty();
     var creditCode = $('#creditCode').val();
     if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
-        // openModal(UN_FIND_CREDIT_CODE)
+        return;
+    }
+    var titleHolder = $('#titleHolder').val();
+    if (titleHolder == null || titleHolder === '') {
+        openModal(UN_FIND_CREDIT_CODE);
         return;
     }
     $.ajax({
         type: 'post',
-        url: SERVICE_URL + '/online/get/patentList/' + creditCode,
+        url: SERVICE_URL + '/online/get/patentList/' + creditCode + "/" + titleHolder,
         xhrFields: {withCredentials: true},
         success: function (vo) {
             if (vo.code === OK) {

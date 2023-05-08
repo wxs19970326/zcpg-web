@@ -1,7 +1,8 @@
 const OK = '0000';
 const NOT_LOGIN = '2035';
 const RE_LOGIN = '2045';
-const SERVICE_URL = 'http://121.43.173.242:8080/api';
+const SERVICE_URL = 'http://121.43.173.242:80/api';
+// const SERVICE_URL = 'http://127.0.0.1:8080/admin';
 const SERVER_ERROR = '服务器出错了';
 const INPUT_IS_NULL = '请将现有输入框填写完整';
 const SEC_PATENT_NO = '有未填 “附属专利编码” 输入框, 请补全后再进行下一步';
@@ -25,5 +26,5 @@ const ASSREF_TIME_STR_NO_VALID = '“评估基准日” 格式不正确';
 const ASSREF_TIME_STR_GT_CURR = '“评估基准日” 不能大于当前日期';
 const PRE_YEAR_INCOME_NULL = '“去年营业收入” 不能为空';
 const CURR_YEAR_INCOME_NULL = '“今年营业收入” 不能为空';
-const UN_FIND_CREDIT_CODE = '未找到统一社会信用代码';
+const UN_FIND_CREDIT_CODE = '请先输入产权持有人';
 const UN_FIND_MAIN_PATENT_NO = '请选择专利';
