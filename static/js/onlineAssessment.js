@@ -89,23 +89,24 @@ function findPatentList() {
     if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
         return;
     }
-    var titleHolder = $('#titleHolder').val();
-    if (titleHolder == null || titleHolder === '') {
-        openModal(UN_FIND_CREDIT_CODE);
-        return;
-    }
+    // var titleHolder = $('#titleHolder').val();
+    // if (titleHolder == null || titleHolder === '') {
+    //     openModal(UN_FIND_CREDIT_CODE);
+    //     return;
+    // }
     $.ajax({
         type: 'post',
-        url: SERVICE_URL + '/online/get/patentList/' + creditCode + "/" + titleHolder,
+        url: SERVICE_URL + '/online/v2/get/patentList' + creditCode,
         xhrFields: {withCredentials: true},
         success: function (vo) {
             if (vo.code === OK) {
-                var patentItemList = vo.data;
+                var patentItemList = vo.data.list;
                 console.log(patentItemList)
                 for (var item of patentItemList) {
                     $('#mainPatentNoSelect').append(`<option value="${item.patentNum}">${item.patentName}</option>`);
                 }
                 $('#mainPatentNoSelect').selectpicker('refresh');
+                $('#titleHolder').val(vo.data.companyName);
             } else {
                 openModal(vo.message)
             }
@@ -248,7 +249,7 @@ $('#btn-next').click(function () {
     if (checkForm()) {
         $.ajax({
             type: 'post',
-            url: SERVICE_URL + '/online/check/title/holder/' + $('#titleHolder').val(),
+            url: SERVICE_URL + '/online/check/title/holder/' + $('#titleHolder').val() + "/" + $('#creditCode').val(),
             xhrFields: {withCredentials: true},
             success: function (vo) {
                 if (vo.code === OK) {
@@ -481,72 +482,72 @@ function confirmIndustryId() {
 }
 
 // 配置数据，使用JSON格式
-var data = {
-    "省份": {
-        "广东": {
-            "深圳": 1,
-            "广州": 2,
-            "东莞": 3
-        },
-        "湖南": {
-            "长沙": 4,
-            "岳阳": 5,
-            "株洲": 6
-        },
-        "江苏": {
-            "南京": 7,
-            "苏州": 8,
-            "无锡": 9
-        }
-    },
-    "颜色": {
-        "红色": 10,
-        "蓝色": 11,
-        "绿色": 12
-    },
-    "水果": {
-        "苹果": 13,
-        "香蕉": 14,
-        "橙子": 15
-    }
-};
+// var data = {
+//     "省份": {
+//         "广东": {
+//             "深圳": 1,
+//             "广州": 2,
+//             "东莞": 3
+//         },
+//         "湖南": {
+//             "长沙": 4,
+//             "岳阳": 5,
+//             "株洲": 6
+//         },
+//         "江苏": {
+//             "南京": 7,
+//             "苏州": 8,
+//             "无锡": 9
+//         }
+//     },
+//     "颜色": {
+//         "红色": 10,
+//         "蓝色": 11,
+//         "绿色": 12
+//     },
+//     "水果": {
+//         "苹果": 13,
+//         "香蕉": 14,
+//         "橙子": 15
+//     }
+// };
 
 // 递归函数，用于生成下拉列表
-function generateSelect(obj, level) {
-    var select = document.createElement("select");
-    var option = document.createElement("option");
-    option.innerHTML = "";
-    select.appendChild(option);
-    select.setAttribute('class', 'form-control');
-    select.setAttribute('style', 'margin-bottom:20px');
-    for (var key in obj) {
-        option = document.createElement("option");
-        option.innerHTML = key;
-        select.appendChild(option);
-
-        if (obj[key] != null) {
-            console.log(obj[key]);
-            var nextLevel = level + 1;
-            select.addEventListener("change", function() {
-                if (this.nextSibling != null) {
-                    this.parentNode.removeChild(this.nextSibling);
-                }
-
-                if (this.selectedIndex != 0) {
-                    var nextObj = obj[this.options[this.selectedIndex].innerHTML];
-                    var nextSelect = generateSelect(nextObj, nextLevel);
-                    this.parentNode.appendChild(nextSelect);
-                }
-            });
-        }
-    }
-
-    return select;
-}
+// function generateSelect(obj, level) {
+//     var select = document.createElement("select");
+//     var option = document.createElement("option");
+//     option.innerHTML = "";
+//     select.appendChild(option);
+//     select.setAttribute('class', 'form-control');
+//     select.setAttribute('style', 'margin-bottom:20px');
+//     for (var key in obj) {
+//         option = document.createElement("option");
+//         option.innerHTML = key;
+//         select.appendChild(option);
+//
+//         if (obj[key] != null) {
+//             console.log(obj[key]);
+//             var nextLevel = level + 1;
+//             select.addEventListener("change", function() {
+//                 if (this.nextSibling != null) {
+//                     this.parentNode.removeChild(this.nextSibling);
+//                 }
+//
+//                 if (this.selectedIndex != 0) {
+//                     var nextObj = obj[this.options[this.selectedIndex].innerHTML];
+//                     var nextSelect = generateSelect(nextObj, nextLevel);
+//                     this.parentNode.appendChild(nextSelect);
+//                 }
+//             });
+//         }
+//     }
+//
+//     return select;
+// }
 
 // 页面加载时生成下拉列表
-window.onload = function() {
-    var container = document.getElementById("container");
-    var select = generateSelect(data, 1);
-    container.appendChild(select);
-};
+// window.onload = function() {
+//     var container = document.getElementById("container");
+//     var select = generateSelect(data, 1);
+//     container.appendChild(select);
+// };
