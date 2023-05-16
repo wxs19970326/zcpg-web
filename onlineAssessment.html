@@ -193,7 +193,7 @@
                             </td>
                             <td class="label-td" style="text-align: left">
 <!--                                <button class="btn btn-outline-secondary btn-sm" style="width: 410px" id="findPatentListBtn">点击查看已选专利列表</button>-->
-                                <a href="javascript:void(0);" class="btn btn-info btn-sm" style="width: 410px" id="findPatentListBtn">点击查看已选列表</a>
+                                <a href="javascript:void(0);" class="btn btn-info btn-sm" style="width: 410px; height: 35px;line-height: 28px" id="findPatentListBtn">点击查看已选列表</a>
                             </td>
 <!--                            <td class="label-td">-->
 <!--                                <label>专利名称：</label>-->
@@ -228,13 +228,15 @@
                         </tbody>
                         <tr>
                             <td class="label-td">
-                                <label>剩余有限期：</label>
+                                <label>主专利：</label>
                             </td>
-                            <td class="input-td">
-<!--                                <select name="validDate" class="form-control" id="validDateSel">-->
-<!--                                    <option value="2" selected>下拉选择</option>-->
-<!--                                </select>-->
-                                <input name="validDate" class="form-control" id="validDate" placeholder="例如：5" oninput="inputNumberD(this)"/>
+                            <td class="input-td input-group mb-3" style="margin: 2px 0 0 0 !important;">
+                                <select name="mainNo" class="form-control" id="mainNos" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    <option value="" selected>选择前请刷新</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-sm btn-outline-secondary" style="height: 41px;" type="button" id="refreshBtn">刷新</button>
+                                </div>
                             </td>
                             <td class="label-td">
                                 <label>评估基准日：</label>

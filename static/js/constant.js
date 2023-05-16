@@ -19,6 +19,7 @@ const MAIN_PATENT_NO_NULL = '“主专利编码” 不能为空';
 const MAIN_PATENT_NAME_NULL = '请选择 "专利明细"';
 const PATENT_SEL_NULL = '请选择 “专利类型”';
 const VALID_DATE_SEL_NULL = '请输入 “剩余有限期”';
+const MAIN_NOS = '请选择 “主专利”';
 const INDUSTRY_SEL_NULL = '请选择 “所属行业”';
 const ASSET_AIM_SEL_NULL = '请选择 “评估目的”';
 const ASSREF_TIME_STR_NULL = '“评估基准日” 不能为空';

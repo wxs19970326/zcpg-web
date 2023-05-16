@@ -31,11 +31,13 @@ function init() {
     $('#patentListModal').on('hide.bs.modal', function () {
         $(".modal-backdrop").remove();
     });
+    $('#refreshBtn').click(function () {
+        refreshSelectPatentList();
+    });
 }
 
 function initFormUrl() {
     $('#submit-form').attr('action', SERVICE_URL + '/online/submit');
-    console.log(111)
     $('#checkedIndustry').click(function () {
         openIndustryTree();
     });
@@ -89,6 +91,7 @@ function findPatentList() {
     if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
         return;
     }
+    // alert("专利明细同步有延迟, 如发现数据不符, 请稍作等待后重新填写信用代码")
     // var titleHolder = $('#titleHolder').val();
     // if (titleHolder == null || titleHolder === '') {
     //     openModal(UN_FIND_CREDIT_CODE);
@@ -96,7 +99,7 @@ function findPatentList() {
     // }
     $.ajax({
         type: 'post',
-        url: SERVICE_URL + '/online/v2/get/patentList' + creditCode,
+        url: SERVICE_URL + '/online/v2/get/patentList/' + creditCode,
         xhrFields: {withCredentials: true},
         success: function (vo) {
             if (vo.code === OK) {
@@ -117,9 +120,9 @@ function findPatentList() {
     })
 }
 
-function findPatentDetail() {
-    $('#patentListBody').empty();
-    console.log($('#mainPatentNoSelect').val())
+function refreshSelectPatentList() {
+    $('#mainNos').empty();
+    $('#mainNos').append("<option value=\"\" selected>选择前请刷新</option>");
     var mainPatentNoSelect = $('#mainPatentNoSelect').val();
     if (mainPatentNoSelect == null || mainPatentNoSelect === '' || mainPatentNoSelect.length === 0) {
         openModal(UN_FIND_MAIN_PATENT_NO)
@@ -136,7 +139,6 @@ function findPatentDetail() {
             patentNos = patentNos + mainPatentNoSelect[i] + ",";
         }
     }
-    console.log(patentNos)
     $.ajax({
         type: 'post',
         url: SERVICE_URL + '/online/get/patentDetail/',
@@ -145,7 +147,50 @@ function findPatentDetail() {
         success: function (vo) {
             if (vo.code === OK) {
                 var patentDetail = vo.data;
-                console.log(patentDetail)
+                if (patentDetail != null) {
+                    for (var i = 0; i < patentDetail.length; i++) {
+                        var item = patentDetail[i];
+                        $('#mainNos').append(`
+                            <option value="${item.patentNum}">${item.patentNum + "-" + item.patentType + ": " + item.patentName}</option>
+                        `);
+                    }
+                }
+            } else {
+                openModal(vo.message)
+            }
+        },
+        error: function () {
+            openModal(SERVER_ERROR)
+        }
+    })
+}
+
+function findPatentDetail() {
+    $('#patentListBody').empty();
+    var mainPatentNoSelect = $('#mainPatentNoSelect').val();
+    if (mainPatentNoSelect == null || mainPatentNoSelect === '' || mainPatentNoSelect.length === 0) {
+        openModal(UN_FIND_MAIN_PATENT_NO)
+        // $('#mainPatentName').val(null)
+        // $('#patentId').val(null)
+        return;
+    }
+    var creditCode = $('#creditCode').val();
+    var patentNos = '';
+    for (var i = 0; i < mainPatentNoSelect.length; i++) {
+        if (i === mainPatentNoSelect.length - 1) {
+            patentNos = patentNos + mainPatentNoSelect[i];
+        } else {
+            patentNos = patentNos + mainPatentNoSelect[i] + ",";
+        }
+    }
+    $.ajax({
+        type: 'post',
+        url: SERVICE_URL + '/online/get/patentDetail/',
+        data: {'patentNos': patentNos, 'creditCode': creditCode},
+        xhrFields: {withCredentials: true},
+        success: function (vo) {
+            if (vo.code === OK) {
+                var patentDetail = vo.data;
                 if (patentDetail != null) {
                     for (var i = 0; i < patentDetail.length; i++) {
                         var item = patentDetail[i];
@@ -286,7 +331,7 @@ function checkForm() {
     let creditCode = $('#creditCode').val();
     let mainPatentNoSelect = $('#mainPatentNoSelect').val();
     let assetObjId = $('#assetObjId').val();
-    let validDate = $('#validDate').val();
+    let mainNos = $('#mainNos').val();
     let industrySel = $('#industrySel').val();
     let assetAimSel = $('#assetAimSel').val();
     let assRefTimeStr = $('#assRefTimeStr').val();
@@ -313,8 +358,8 @@ function checkForm() {
     } else if (mainPatentNoSelect == null || mainPatentNoSelect === '' || mainPatentNoSelect.length === 0) {
         res(MAIN_PATENT_NAME_NULL);
         return false
-    } else if (validDate == null || validDate === '') {
-        res(VALID_DATE_SEL_NULL);
+    } else if (mainNos == null || mainNos === '') {
+        res(MAIN_NOS);
         return false;
     }
     if (industrySel === null || industrySel === '') {
