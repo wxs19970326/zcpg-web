@@ -87,6 +87,7 @@ function initSelect() {
 
 function findPatentList() {
     $('#mainPatentNoSelect').empty();
+    $('#titleHolder').val();
     var creditCode = $('#creditCode').val();
     if (creditCode == null || creditCode === '' || creditCode.length !== 18) {
         return;
@@ -104,13 +105,15 @@ function findPatentList() {
         success: function (vo) {
             if (vo.code === OK) {
                 var patentItemList = vo.data.list;
-                console.log(patentItemList)
                 for (var item of patentItemList) {
                     $('#mainPatentNoSelect').append(`<option value="${item.patentNum}">${item.patentName}</option>`);
                 }
                 $('#mainPatentNoSelect').selectpicker('refresh');
                 $('#titleHolder').val(vo.data.companyName);
             } else {
+                $('#titleHolder').val('');
+                $('#mainPatentNoSelect').empty();
+                $('#mainPatentNoSelect').selectpicker('refresh');
                 openModal(vo.message)
             }
         },
